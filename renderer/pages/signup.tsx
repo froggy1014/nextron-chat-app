@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 function signup() {
+  const { user, signup } = useAuth();
+  console.log(user)
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -8,7 +11,11 @@ function signup() {
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
-    console.log(data);
+    try {
+      await signup(data.email, data.password);
+    } catch (error) {
+      console.log(error)
+    }
 }
 
   return (
